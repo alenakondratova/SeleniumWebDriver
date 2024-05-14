@@ -25,7 +25,7 @@ public class myFirstTest {
     public void stop() {
         driver.close();
         driver.quit();
-        driver=null;    }
+    }
 }
 
 
