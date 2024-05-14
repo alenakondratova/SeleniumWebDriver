@@ -1,15 +1,13 @@
-import org.junit.After;
-import org.junit.Before;
+package tests;
+
+import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
-
-public class MyFirstTest {
+public class myFirstTest {
     public WebDriver driver = new ChromeDriver();
     private WebDriverWait wait;
 
@@ -27,7 +25,7 @@ public class MyFirstTest {
     public void stop() {
         driver.close();
         driver.quit();
-    }
+        driver=null;    }
 }
 
 
