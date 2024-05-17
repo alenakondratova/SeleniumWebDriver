@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,11 +27,11 @@ public class LabelCheck {
     public void LabelCheck() {
         driver.navigate().to("http://localhost/litecart");
 
-        List<WebElement> productItems = driver.findElements(By.xpath(".//li[contains(@class, 'product column shadow')]"));
+        List<WebElement> productItems = driver.findElements(By.xpath(".//li[contains(@class, 'product')]"));
         int numberOfListElements = productItems.size();
         for (int i = 0; i < numberOfListElements; i++) {
             WebElement label = driver.findElement(By.xpath(".//div[contains(@class, 'sticker')]"));
-            int amount = driver.findElement(By.xpath(".//li[contains(@class, 'product column shadow')]")).findElements(By.xpath(".//div[contains(@class, 'sticker ')]")).size();
+            int amount = driver.findElement(By.xpath(".//li[contains(@class, 'product')]")).findElements(By.xpath(".//div[contains(@class, 'sticker ')]")).size();
             label.isDisplayed();
             assertEquals (1, amount);
         }
