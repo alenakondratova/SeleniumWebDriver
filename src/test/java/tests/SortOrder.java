@@ -58,15 +58,15 @@ public class SortOrder {
             boolean zoneValue = zone.get(i).getAttribute("outerText").equals("0");
             if (!zoneValue) {
                 country.get(i).click();
-                List<WebElement> subCountries = driver.findElements(By.xpath("//*[@class='dataTable']//td[3]//input"));
+                List<WebElement> subCountries = driver.findElements(By.xpath("//*[@class='dataTable']//td[3]"));
                 List<String> expected = new ArrayList<>();
                 List<String> actualCountry = new ArrayList<>();
                 int countItems = subCountries.size();
                 for (int j = 0; j < countItems; j++) {
-                    boolean zoneExists= subCountries.get(j).getAttribute("value").isEmpty();
+                    boolean zoneExists= subCountries.get(j).getAttribute("textContent").isEmpty();
                     if (!zoneExists) {
-                    expected.add(subCountries.get(j).getAttribute("value"));
-                    actualCountry.add(subCountries.get(j).getAttribute("value"));
+                    expected.add(subCountries.get(j).getAttribute("textContent"));
+                    actualCountry.add(subCountries.get(j).getAttribute("textContent"));
                 } }
                 Collections.sort(expected);
                 assertEquals(expected, actualCountry);
