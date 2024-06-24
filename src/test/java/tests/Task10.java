@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -42,7 +41,8 @@ public class Task10 {
         int bRegularPrice = Integer.parseInt(rgbRegularPrice[2].trim());
         String regularPriceStyle = expectedPriceElement.getCssValue("text-decoration");
         boolean regularPriceIsCrossedOut = regularPriceStyle.contains("line-through");
-        Dimension regularPriceSize = expectedPriceElement.getSize();
+        String fontSizeRegular = expectedPriceElement.getCssValue("font-size");
+        float sizeRegular = Float.parseFloat(fontSizeRegular.replaceAll("[^\\d.]", ""));
 
 
         //discount price on the main page
@@ -56,8 +56,9 @@ public class Task10 {
         int bDiscountPrice = Integer.parseInt(rgbDiscountPrice[2].trim());
         String discountPriceWeight = expectedPriceDiscountElement.getCssValue("font-weight");
         boolean discountPriceIsBold = "bold".equals(discountPriceWeight) || "bolder".equals(discountPriceWeight) || Integer.parseInt(discountPriceWeight) >= 700;
-        Dimension discountPriceSize = expectedPriceDiscountElement.getSize();
-        boolean sizeCompare = (discountPriceSize.getWidth())>(regularPriceSize.getWidth())&&(discountPriceSize.getHeight()>(regularPriceSize.getHeight()));
+        String fontSizeDiscount = expectedPriceDiscountElement.getCssValue("font-size");
+        float sizeDiscount = Float.parseFloat(fontSizeDiscount.replaceAll("[^\\d.]", ""));
+
 
         productItem.click();
         //elements on card page
@@ -75,7 +76,8 @@ public class Task10 {
         int bRegularPriceCard = Integer.parseInt(rgbRegularPriceCard[2].trim());
         String regularPriceStyleCard = actualPriceElement.getCssValue("text-decoration");
         boolean regularPriceCardIsCrossedOut = regularPriceStyleCard.contains("line-through");
-        Dimension regularPriceSizeCard = actualPriceElement.getSize();
+        String fontSizeRegularCard = actualPriceElement.getCssValue("font-size");
+        float sizeRegularCard = Float.parseFloat(fontSizeRegularCard.replaceAll("[^\\d.]", ""));
 
         //properties of discount price on the card page
         String discountPriceColorCard = actualPriceDiscountElement.getCssValue("color");
@@ -83,9 +85,9 @@ public class Task10 {
         int gDiscountPriceCard = Integer.parseInt(rgbDiscountPriceCard[1].trim());
         int bDiscountPriceCard = Integer.parseInt(rgbDiscountPriceCard[2].trim());
         String discountPriceCardWeight = actualPriceDiscountElement.getCssValue("font-weight");
-        Dimension discountPriceSizeCard = actualPriceDiscountElement.getSize();
         boolean discountPriceCardIsBold = "bold".equals(discountPriceCardWeight) || "bolder".equals(discountPriceCardWeight) || Integer.parseInt(discountPriceCardWeight) >= 700;
-        boolean sizeCompareCard = (discountPriceSizeCard.getWidth())>(regularPriceSizeCard.getWidth())&&(discountPriceSizeCard.getHeight()>(regularPriceSizeCard.getHeight()));
+        String fontSizeDiscountCard = actualPriceDiscountElement.getCssValue("font-size");
+        float sizeDiscountCard = Float.parseFloat(fontSizeDiscountCard.replaceAll("[^\\d.]", ""));
 
         // 1. checking Name on the main page and card page
         assertEquals(expectedName, actualName);
@@ -111,10 +113,10 @@ public class Task10 {
         assertEquals(discountPriceCardIsBold, true);
 
         //checking price font size on the main page
-        assertEquals(sizeCompare, true);
+        assertEquals(sizeDiscount>sizeRegular, true);
 
         //checking price font size on card page
-        assertEquals(sizeCompareCard, true);
+        assertEquals(sizeDiscountCard>sizeRegularCard, true);
     }
 
 
